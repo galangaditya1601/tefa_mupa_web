@@ -11,8 +11,8 @@ class HomeController extends Controller
         // Simulasi Data (Nanti diganti query Database)
         $data = [
             'hero' => [
-                ['title' => 'Inovasi Tanpa Batas', 'subtitle' => 'Mencetak Generasi Unggul di Era Teknologi', 'image' => 'https://placehold.co/1200x600/0d6efd/ffffff?text=Slide+1'],
-                ['title' => 'TEFA Mupa', 'subtitle' => 'Solusi Kebutuhan Industri dan Jasa', 'image' => 'https://placehold.co/1200x600/6610f2/ffffff?text=Slide+2'],
+                ['title' => 'Inovasi Tanpa Batas', 'subtitle' => 'Mencetak Generasi Unggul di Era Teknologi', 'image' => 'images/slider/slider1.jpg'],
+                ['title' => 'TEFA Mupa', 'subtitle' => 'Solusi Kebutuhan Industri dan Jasa', 'image' => 'images/slider/slider2.jpg'],
             ],
             'profil' => [
                 'title' => 'Tentang TEFA Mupa',
@@ -21,23 +21,48 @@ class HomeController extends Controller
             ],
             // Data dipisah agar mudah dimapping di Tabs
             'produk' => [
-                ['nama' => 'Smart RFID Lock', 'kategori' => 'IoT', 'img' => 'https://placehold.co/300x200?text=RFID'],
-                ['nama' => 'Running Text LED', 'kategori' => 'Elektronika', 'img' => 'https://placehold.co/300x200?text=LED'],
+                [
+                    'nama' => 'Smart RFID Lock',
+                    'slug' => 'smart-rfid-lock', // Slug added
+                    'kategori' => 'IoT',
+                    'img' => 'images/products/rfid.webp'
+                ],
             ],
             'jasa' => [
-                ['nama' => 'Servis Laptop & PC', 'kategori' => 'Teknisi', 'img' => 'https://placehold.co/300x200?text=Servis'],
-                ['nama' => 'Desain Arsitektur', 'kategori' => 'Desain', 'img' => 'https://placehold.co/300x200?text=Arsitek'],
+                [
+                    'nama' => 'Servis Motor',
+                    'slug' => 'servis-motor', // Slug added
+                    'kategori' => 'Teknisi',
+                    'img' => 'images/products/service-motor.png'
+                ],
+                [
+                    'nama' => 'Servis Mobil',
+                    'slug' => 'servis-mobil', // Slug added
+                    'kategori' => 'Teknisi',
+                    'img' => 'images/products/service-mobil.jpg'
+                ],
+                [
+                    'nama' => 'Desain Arsitektur',
+                    'slug' => 'desain-arsitektur', // Slug added
+                    'kategori' => 'Desain',
+                    'img' => 'images/products/arsitek.png'
+                ],
             ],
             'berita' => [
-                ['judul' => 'Kunjungan Industri 2025', 'tanggal' => '24 Des 2025', 'excerpt' => 'Siswa melakukan kunjungan ke pabrik elektronik terkemuka...', 'img' => 'https://placehold.co/400x250'],
-                ['judul' => 'Juara 1 Lomba Robotik', 'tanggal' => '20 Des 2025', 'excerpt' => 'Tim robotik sekolah berhasil menyabet emas...', 'img' => 'https://placehold.co/400x250'],
-                ['judul' => 'Workshop IoT Gratis', 'tanggal' => '15 Des 2025', 'excerpt' => 'Membuka wawasan masyarakat tentang teknologi...', 'img' => 'https://placehold.co/400x250'],
+                ['judul' => 'Kunjungan Industri 2025', 'tanggal' => '24 Des 2025', 'excerpt' => 'Siswa melakukan kunjungan ke pabrik elektronik terkemuka...', 'img' => 'images/articles/kunjungan-industri.png'],
+                ['judul' => 'Juara 1 Lomba Robotik', 'tanggal' => '20 Des 2025', 'excerpt' => 'Tim robotik sekolah berhasil menyabet emas...', 'img' => 'images/articles/robotik.jpg'],
+                ['judul' => 'Workshop IoT Gratis', 'tanggal' => '15 Des 2025', 'excerpt' => 'Membuka wawasan masyarakat tentang teknologi...', 'img' => 'images/articles/wshop.png'],
             ],
             'gallery' => [
-                'https://placehold.co/300x300?text=1',
-                'https://placehold.co/300x300?text=2',
-                'https://placehold.co/300x300?text=3',
-                'https://placehold.co/300x300?text=4',
+                'images/gallery/1.png',
+                'images/gallery/2.jpg',
+                'images/gallery/3.webp',
+                'images/gallery/4.webp',
+                'images/gallery/5.webp',
+                'images/gallery/6.webp',
+                'images/gallery/7.webp',
+                'images/gallery/8.webp',
+
             ]
         ];
 

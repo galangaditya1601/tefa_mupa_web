@@ -12,18 +12,21 @@
 
         <div class="carousel-inner">
             @foreach ($hero as $index => $slide)
-                {{-- Tambahkan data-bs-interval agar auto-play per slide --}}
                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}" data-bs-interval="5000">
+                    <img src="{{ asset($slide['image']) }}" class="d-block w-100 hero-img" alt="{{ $slide['title'] }}">
 
-                    {{-- Style inline height dipindah ke SCSS nanti --}}
-                    <img src="{{ $slide['image'] }}" class="d-block w-100 hero-img" alt="{{ $slide['title'] }}">
+                    {{-- Menghapus bg-dark dan bg-opacity, ganti ke text-start --}}
+                    <div class="carousel-caption d-none d-md-block text-start hero-caption-clean">
+                        <div class="container"> {{-- Container agar teks sejajar dengan konten navbar/body --}}
+                            <h1 class="display-3 fw-bold animated-text">{{ $slide['title'] }}</h1>
+                            <p class="fs-5 animated-text delay-1 mb-4">{{ $slide['subtitle'] }}</p>
 
-                    {{-- Caption dengan class custom 'hero-caption' --}}
-                    <div class="carousel-caption d-none d-md-block hero-caption p-4 rounded-3">
-                        <h1 class="display-4 fw-bold animated-text">{{ $slide['title'] }}</h1>
-                        <p class="lead animated-text delay-1">{{ $slide['subtitle'] }}</p>
-                        <a href="#"
-                            class="btn btn-warning fw-bold px-4 py-2 mt-2 animated-text delay-2">Selengkapnya</a>
+                            {{-- Ganti btn-warning ke btn-primary atau class custom --}}
+                            <a href="#"
+                                class="btn btn-tefa-primary btn-lg fw-bold px-4 py-4 animated-text delay-2">
+                                Daftar Sekarang <i class="bi bi-arrow-right ms-2"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             @endforeach
@@ -44,15 +47,79 @@
         <div class="container py-4">
             <div class="row align-items-center g-5">
                 <div class="col-lg-6">
-                    <h6 class="text-primary fw-bold text-uppercase ls-wide">Siapa Kami</h6>
+                    <h6 class="txt-primary fw-bold text-uppercase ls-wide">Siapa Kami</h6>
                     <h2 class="fw-bold mb-4 display-6">{{ $profil['title'] }}</h2>
                     <p class="text-muted lead mb-4">{{ $profil['description'] }}</p>
-                    <a href="#" class="btn btn-outline-primary rounded-pill px-4">Baca Profil Lengkap <i
+                    <a href="#" class="btn bt-outline-primary rounded-pill px-4">Baca Profil Lengkap <i
                             class="bi bi-arrow-right"></i></a>
                 </div>
                 <div class="col-lg-6">
-                    <img src="{{ $profil['image'] }}" class="img-fluid rounded-4 shadow-lg w-100" alt="Profil TEFA">
+                    <img src="{{ asset('images/local/gedung.jpg') }}" class="img-fluid rounded-4 shadow-lg w-100"
+                        alt="Profil TEFA">
                 </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- SECTION: KATEGORI LAYANAN --}}
+    <section class="py-5 bg-light">
+        <div class="container py-lg-4">
+
+            {{-- Section Title --}}
+            <div class="text-center mb-5 mw-800 mx-auto">
+                <h6 class="text-secondary fw-bold text-uppercase ls-wide">Lingkup Layanan</h6>
+                <h2 class="fw-bold display-6 mb-3">Solusi Komprehensif TEFA</h2>
+                <p class="text-muted">
+                    Kami menyediakan produk teknologi tepat guna dan layanan jasa profesional yang dikerjakan oleh siswa
+                    berkompeten dengan standar industri.
+                </p>
+            </div>
+
+            {{-- Grid Cards --}}
+            <div class="row g-4">
+
+                {{-- Card 1: Hardware --}}
+                <div class="col-md-4">
+                    <div class="card-category h-100 p-4 text-center">
+                        <div class="icon-wrapper mb-3">
+                            <i class="bi bi-cpu fs-1"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Hardware & IoT</h4>
+                        <p class="text-muted mb-0">
+                            Inovasi produk elektronik seperti Smart Lock RFID, Running Text, dan alat otomasi berbasis
+                            mikrokontroler terkini.
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Card 2: Creative & Design --}}
+                <div class="col-md-4">
+                    <div class="card-category h-100 p-4 text-center">
+                        <div class="icon-wrapper mb-3">
+                            <i class="bi bi-vector-pen fs-1"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Desain & Kreatif</h4>
+                        <p class="text-muted mb-0">
+                            Layanan profesional untuk desain arsitektur bangunan, desain grafis, hingga pengembangan
+                            solusi perangkat lunak.
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Card 3: Service --}}
+                <div class="col-md-4">
+                    <div class="card-category h-100 p-4 text-center">
+                        <div class="icon-wrapper mb-3">
+                            <i class="bi bi-tools fs-1"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Service & Repair</h4>
+                        <p class="text-muted mb-0">
+                            Pusat perbaikan terpercaya untuk Motor dan Mobil dengan teknisi terlatih dan bergaransi
+                            layanan prima.
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -62,63 +129,58 @@
     <section class="py-5 bg-light" x-data="{ activeTab: 'produk' }">
         <div class="container py-4">
             <div class="text-center mb-5">
-                <h2 class="fw-bold">Produk & Layanan Kami</h2>
+                <h2 class="fw-bold txt-primary ">Produk & Layanan Kami</h2>
                 <p class="text-muted">Karya terbaik siswa dan layanan profesional untuk masyarakat</p>
+            </div>
+
+            <div class="row g-4" x-data="{ activeTab: 'produk' }">
 
                 {{-- Tombol Tab --}}
                 <div class="d-flex justify-content-center gap-2 mt-4">
-                    <button :class="activeTab === 'produk' ? 'btn-primary' : 'btn-outline-primary'"
+                    <button @click="activeTab = 'produk'"
+                        :class="activeTab === 'produk' ? 'bt-primary' : 'bt-outline-primary'"
                         class="btn px-4 rounded-pill">
                         <i class="bi bi-box-seam me-1"></i> Produk
                     </button>
-                    <button :class="activeTab === 'jasa' ? 'btn-primary' : 'btn-outline-primary'"
+                    <button @click="activeTab = 'jasa'"
+                        :class="activeTab === 'jasa' ? 'bt-primary' : 'bt-outline-primary'"
                         class="btn px-4 rounded-pill">
                         <i class="bi bi-tools me-1"></i> Jasa & Servis
                     </button>
                 </div>
+
+
+                {{-- LOOP PRODUK --}}
+                @foreach ($produk as $item)
+                    {{-- Gunakan x-show langsung di sini --}}
+                    <div class="col-md-3 col-sm-6" x-show="activeTab === 'produk'"
+                        x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 transform scale-95"
+                        x-transition:enter-end="opacity-100 transform scale-100">
+
+                        {{-- Panggil Component --}}
+                        <x-card-product :item="$item" type="produk" />
+
+                    </div>
+                @endforeach
+
+                {{-- LOOP JASA --}}
+                @foreach ($jasa as $item)
+                    <div class="col-md-3 col-sm-6" x-show="activeTab === 'jasa'"
+                        x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 transform scale-95"
+                        x-transition:enter-end="opacity-100 transform scale-100">
+
+                        {{-- Panggil Component --}}
+                        <x-card-product :item="$item" type="jasa" />
+
+                    </div>
+                @endforeach
+
             </div>
 
-            {{-- Content Area --}}
-            <div class="row g-4">
-                {{-- Loop Produk --}}
-                <template x-if="activeTab === 'produk'">
-                    @foreach ($produk as $item)
-                        <div class="col-md-3 col-sm-6 animate-fade">
-                            <div class="card h-100 border-0 shadow-sm hover-up">
-                                <img src="{{ $item['img'] }}" class="card-img-top" alt="...">
-                                <div class="card-body text-center">
-                                    <span
-                                        class="badge bg-info bg-opacity-10 text-info mb-2">{{ $item['kategori'] }}</span>
-                                    <h5 class="card-title fw-bold">{{ $item['nama'] }}</h5>
-                                    <p class="card-text text-muted small">Deskripsi singkat produk unggulan kami.</p>
-                                    <a href="#" class="btn btn-sm btn-primary w-100">Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </template>
-
-                {{-- Loop Jasa --}}
-                <template x-if="activeTab === 'jasa'">
-                    @foreach ($jasa as $item)
-                        <div class="col-md-3 col-sm-6 animate-fade">
-                            <div class="card h-100 border-0 shadow-sm hover-up">
-                                <img src="{{ $item['img'] }}" class="card-img-top" alt="...">
-                                <div class="card-body text-center">
-                                    <span
-                                        class="badge bg-success bg-opacity-10 text-success mb-2">{{ $item['kategori'] }}</span>
-                                    <h5 class="card-title fw-bold">{{ $item['nama'] }}</h5>
-                                    <p class="card-text text-muted small">Layanan profesional dengan teknisi handal.</p>
-                                    <a href="#" class="btn btn-sm btn-success w-100">Booking</a>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </template>
-            </div>
-
-            <div class="text-center mt-5">
-                <a href="#" class="btn btn-link text-decoration-none fw-bold">Lihat Semua Katalog <i
+            <div class="text-end mt-3">
+                <a href="#" class="bt-link-primary text-decoration-none fw-bold">Lihat Semua Produk dan Jasa <i
                         class="bi bi-chevron-right"></i></a>
             </div>
         </div>
@@ -127,28 +189,31 @@
     {{-- SECTION 4: BERITA TERKINI --}}
     <section class="py-5 bg-white">
         <div class="container py-4">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="fw-bold mb-0">Berita Terkini</h2>
-                <a href="#" class="btn btn-outline-dark btn-sm rounded-pill">Lihat Semua</a>
+            <div class="text-center mb-5">
+                <h2 class="fw-bold txt-primary ">Berita Terkini</h2>
+                <p class="text-muted">Berita terkini tentang SMK Muhammadyah Pakem</p>
             </div>
 
             <div class="row g-4">
                 @foreach ($berita as $news)
                     <div class="col-md-4">
-                        <div class="card h-100 border-0 shadow-sm">
-                            <img src="{{ $news['img'] }}" class="card-img-top rounded-top-3" alt="...">
+                        <a href="#" class="card h-100 border-0 shadow-sm">
+                            <img src="{{ $news['img'] }}" class="card-img-top rounded-top-3 news-image"
+                                alt="...">
                             <div class="card-body">
                                 <small class="text-muted"><i class="bi bi-calendar-event"></i>
                                     {{ $news['tanggal'] }}</small>
                                 <h5 class="card-title fw-bold mt-2 text-truncate">{{ $news['judul'] }}</h5>
                                 <p class="card-text text-muted">{{ $news['excerpt'] }}</p>
-                                <a href="#"
-                                    class="text-primary text-decoration-none fw-semibold stretched-link">Baca
-                                    Selengkapnya</a>
+
                             </div>
-                        </div>
+                        </a>
                     </div>
                 @endforeach
+            </div>
+            <div class="text-end mt-3">
+                <a href="#" class="bt-link-primary text-decoration-none fw-bold">Lihat Semua Berita <i
+                        class="bi bi-chevron-right"></i></a>
             </div>
         </div>
     </section>
@@ -156,19 +221,22 @@
     {{-- SECTION 5: GALLERY --}}
     <section class="py-5 bg-light">
         <div class="container py-4">
-            <h2 class="fw-bold text-center mb-5">Galeri Kegiatan</h2>
+            <div class="text-center mb-5">
+                <h2 class="fw-bold txt-primary ">Gallery Kegiatan</h2>
+                <p class="text-muted">Gallery kegiatan TEFA MUPA</p>
+            </div>
             <div class="row g-2">
                 @foreach ($gallery as $foto)
                     <div class="col-md-3 col-6">
                         <div class="ratio ratio-1x1">
-                            <img src="{{ $foto }}" class="img-fluid rounded-3 object-fit-cover shadow-sm"
-                                alt="Gallery">
+                            <img src="{{ $foto }}" class="img-fluid rounded-3  shadow-sm " alt="Gallery">
                         </div>
                     </div>
                 @endforeach
             </div>
-            <div class="text-center mt-4">
-                <a href="#" class="btn btn-outline-primary rounded-pill">Lihat Galeri Penuh</a>
+            <div class="text-end mt-3">
+                <a href="#" class="bt-link-primary text-decoration-none fw-bold">Lihat Semua Gallery <i
+                        class="bi bi-chevron-right"></i></a>
             </div>
         </div>
     </section>

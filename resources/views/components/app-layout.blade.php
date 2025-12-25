@@ -16,17 +16,12 @@
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.0/dist/cdn.min.js"></script>
 
-    <style>
-        /* Base font agar terlihat modern */
-        body {
-            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
 
-        /* Utility class tambahan jika perlu */
-        .text-tefa-primary {
-            color: #0d6efd;
-        }
-    </style>
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-light">

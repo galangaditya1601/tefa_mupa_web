@@ -1,14 +1,14 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm py-4">
     <div class="container">
-        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{{ route('home') }}">
-            <i class="bi bi-gear-wide-connected"></i> TEFA MUPA
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2 text-black" href="{{ route('home') }}">
+            <img src="{{ asset('images/local/logo-tefa.png') }}" /> TEFA MUHAMMADYAH PAKEM
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-4">
                 <li class="nav-item">
                     <a class="nav-link active" href="{{ route('home') }}">Home</a>
                 </li>
@@ -30,9 +30,8 @@
 
                 <li class="nav-item"><a class="nav-link" href="#">Berita</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Gallery</a></li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-light text-primary ms-2 px-3 fw-semibold" href="#">Contact Us</a>
-                </li>
+                <li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>
+
             </ul>
         </div>
     </div>
