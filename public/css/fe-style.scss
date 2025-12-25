@@ -1,0 +1,358 @@
+/* style.scss */
+@use "sass:color";
+
+@use "variables" as *;
+
+$font-heading: "Space Grotesk", sans-serif;
+$font-body: "Inter", sans-serif;
+
+// Override/Reset dasar
+body {
+    background-color: $bg-light;
+    color: $text-dark;
+    font-family: $font-body;
+}
+
+a {
+    text-decoration: none;
+}
+
+//UTILS
+.txt-primary {
+    color: $primary;
+}
+
+.txt-secondary {
+    color: $secondary;
+}
+
+.bt-primary {
+    background-color: $primary;
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: $primary-light;
+        color: white;
+    }
+}
+
+.bt-link-primary {
+    background-color: transparent;
+    color: $primary;
+    border: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: transparent;
+        color: $primary;
+    }
+}
+
+.bt-outline-primary {
+    border: 1px solid $primary;
+    color: $primary;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: $primary;
+        color: white;
+    }
+    &:active {
+        background-color: $primary;
+        color: white;
+    }
+}
+// --- HERO CAROUSEL ---
+#heroCarousel {
+    .hero-img {
+        height: 600px;
+        object-fit: cover;
+        filter: brightness(0.5);
+    }
+
+    .hero-caption-clean {
+        top: 30%; // Atur posisi vertikal
+        left: 15%; // Tarik ke paling kiri
+        right: auto; // Matikan tarikan kanan
+        text-align: left;
+        width: 60%; // Batasi lebar teks agar tidak terlalu panjang ke kanan
+        padding-left: 0; // Reset padding bawaan
+
+        h1 {
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            margin-bottom: 1rem;
+            font-family: $font-heading;
+        }
+
+        p {
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        }
+    }
+}
+
+// Custom Button menggunakan Variabel Primary
+.btn-tefa-primary {
+    background-color: $primary;
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: color.adjust($primary, $lightness: -10%);
+        color: white;
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba($primary, 0.4);
+    }
+}
+
+// --- COMPONENT: CATEGORY CARD ---
+.card-category {
+    background-color: white; // Default putih
+    border-radius: 16px;
+    border: 1px solid transparent; // Persiapan border
+    transition: all 0.3s ease;
+
+    // Icon Wrapper
+    .icon-wrapper {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        // Background icon: Biru sangat muda
+        background-color: color.scale($primary, $lightness: 90%);
+        color: $primary;
+        transition: all 0.3s ease;
+
+        i {
+            line-height: 1;
+        }
+    }
+
+    // Efek Hover (Saat kursor masuk)
+    &:hover {
+        transform: translateY(-10px); // Naik ke atas dikit
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+        border-color: color.scale($primary, $lightness: 80%);
+
+        // Icon berubah warna saat hover card
+        .icon-wrapper {
+            background-color: $primary;
+            color: white;
+            transform: rotateY(180deg); // Efek putar sedikit (opsional, biar keren)
+        }
+    }
+
+    h4 {
+        color: $text-dark;
+    }
+}
+
+//PRODUCT
+.group-card {
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+    background: white;
+
+    // Efek Zoom Gambar saat Card dihover
+    .transition-img {
+        transition: transform 0.5s ease;
+    }
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important; // Paksa shadow halus
+
+        .transition-img {
+            transform: scale(1.05);
+        }
+    }
+}
+
+// Utility untuk membatasi teks hanya 2 baris (biar tinggi card sama)
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+// Animasi Teks Muncul (Bonus)
+.animated-text {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.delay-1 {
+    animation-delay: 0.3s;
+}
+.delay-2 {
+    animation-delay: 0.6s;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Responsif untuk HP
+@media (max-width: 768px) {
+    #heroCarousel .hero-img {
+        height: 400px;
+    }
+    // Tampilkan caption di HP tapi kecil
+    #heroCarousel .carousel-caption {
+        display: block !important;
+        bottom: 10%;
+        padding: 1rem !important;
+
+        h1 {
+            font-size: 1.5rem;
+        }
+        p {
+            font-size: 0.9rem;
+        }
+        .btn {
+            padding: 5px 15px;
+            font-size: 0.8rem;
+        }
+    }
+}
+
+// --- COMPONENT: PRODUCT DETAIL ---
+
+// 1. Breadcrumb Custom
+.breadcrumb-tefa {
+    .breadcrumb-item a {
+        color: $text-muted;
+        &:hover {
+            color: $primary;
+        }
+    }
+    .breadcrumb-item.active {
+        color: $primary;
+        font-weight: 600;
+    }
+}
+
+// 2. Product Gallery (Image)
+.product-gallery {
+    .main-image {
+        border-radius: $border-radius;
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+
+        img {
+            transition: transform 0.5s ease;
+            &:hover {
+                transform: scale(1.05);
+            }
+        }
+    }
+
+    .thumb-list {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+
+        .thumb-item {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            overflow: hidden;
+            opacity: 0.7;
+            transition: all 0.3s;
+
+            &.active,
+            &:hover {
+                border-color: $primary;
+                opacity: 1;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}
+
+// 3. Product Info (Right Side)
+.product-info {
+    .badge-category {
+        background-color: $primary-light;
+        color: $primary;
+        padding: 5px 12px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.85rem;
+    }
+
+    h1 {
+        font-weight: 800;
+        color: $text-dark;
+        margin-top: 10px;
+    }
+
+    .price-tag {
+        font-size: 1.5rem;
+        color: $primary;
+        font-weight: 700;
+    }
+
+    .specs-box {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: $border-radius;
+        padding: 20px;
+        margin-top: 20px;
+
+        li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            i {
+                color: $secondary;
+            } // Icon warna secondary
+        }
+    }
+}
+
+// NEWS
+.news-image {
+    height: 400px;
+    object-fit: cover;
+}
+// 4. Action Buttons
+.btn-wa {
+    background-color: #25d366; // Warna WA asli
+    color: white;
+    border: none;
+    font-weight: 600;
+    &:hover {
+        background-color: color.adjust(#25d366, $lightness: -10%);
+        color: white;
+    }
+}
+
+.btn-primary-tefa {
+    background-color: $primary;
+    color: white;
+    border: none;
+    &:hover {
+        background-color: color.adjust($primary, $lightness: -10%);
+        color: white;
+    }
+}
