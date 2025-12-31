@@ -12,7 +12,16 @@ Route::get('/produk/{slug}', [ProductController::class, 'show'])->name('products
 
 // backoffice
 Route::prefix('backoffice')->group(function () {
-    // Tambahkan rute backoffice di sini
+    Route::post('authentication',[App\Http\Controllers\Backoffice\Auth\AutenticationController::class,'login'])->name('auth');
+    Route::get('login', function () {
+        return view('backoffice.pages.login.index');
+    })->name('login-backoffice');
+
+    Route::middleware('auth')->group(function () {
+        Route::get('dashboard', function () {
+            return response()->json('login succes');
+        })->name('dashboard');
+    });
 });
 
 
