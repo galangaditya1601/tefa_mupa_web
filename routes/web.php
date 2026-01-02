@@ -37,10 +37,9 @@ Route::prefix('backoffice')->group(function () {
         return view('backoffice.pages.login.index');
     })->name('login-backoffice');
 
-    // Jika ingin pakai middleware auth, tinggal uncomment
-    // Route::middleware('auth')->group(function () {
+    Route::middleware('auth')->group(function () {
         Route::get('dashboard', function () {
             return view('backoffice.pages.dashboard.index');
         })->name('dashboard');
-    // });
+    });
 });
