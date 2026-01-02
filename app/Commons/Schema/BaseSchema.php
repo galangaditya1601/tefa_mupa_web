@@ -42,4 +42,14 @@ class BaseSchema
     {
 
     }
+
+    /**
+     * Get the body data
+     *
+     * @return array
+     */
+    public function getBody()
+    {
+        return $this->body ?? [];
+    }
 }

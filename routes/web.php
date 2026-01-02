@@ -41,5 +41,6 @@ Route::prefix('backoffice')->group(function () {
         Route::get('dashboard', function () {
             return view('backoffice.pages.dashboard.index');
         })->name('dashboard');
+        Route::resource('sliders', App\Http\Controllers\Backoffice\SliderController::class);
     });
 });

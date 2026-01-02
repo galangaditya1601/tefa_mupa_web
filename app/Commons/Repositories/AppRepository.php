@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use App\Commons\Schema\BaseSchema;
 
 class AppRepository{
     /**
@@ -68,52 +69,52 @@ class AppRepository{
     /**
      * create new record in database.
      *
-     * @param Request $request Illuminate\Http\Request
+     * @param Request|BaseSchema|array $data Illuminate\Http\Request, BaseSchema, or array
      * @return saved model object with data.
      */
-    public function store(Request $request)
+    public function store($data)
     {
-        $data = NULL;
+        $result = NULL;
         DB::beginTransaction();
         try {
-            $dataToSave = $this->setDataPayload($request);
-            $data = $this->model;
-            $data->fill($dataToSave);
-            $data->save();
+            $dataToSave = $this->extractData($data);
+            $result = $this->model;
+            $result->fill($dataToSave);
+            $result->save();
 
             Cache::flush();
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
-            $data = $th;
+            $result = $th;
         }
-        return $data;
+        return $result;
     }
 
     /**
      * update existing item.
      *
      * @param  Integer $id integer item primary key.
-     * @param Request $request Illuminate\Http\Request
+     * @param Request|BaseSchema|array $data Illuminate\Http\Request, BaseSchema, or array
      * @return send updated item object.
      */
-    public function update($id, Request $request)
+    public function update($id, $data)
     {
-        $data = NULL;
+        $result = NULL;
         DB::beginTransaction();
         try {
-            $dataToSave = $this->setDataPayload($request);
-            $data = $this->model->findOrFail($id);
-            $data->fill($dataToSave);
-            $data->save();
+            $dataToSave = $this->extractData($data);
+            $result = $this->model->findOrFail($id);
+            $result->fill($dataToSave);
+            $result->save();
 
             Cache::flush();
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
-            $data = $th;
+            $result = $th;
         }
-        return $data;
+        return $result;
     }
 
     /**
@@ -158,6 +159,25 @@ class AppRepository{
             $data = $th;
         }
         return $data;
+    }
+
+    /**
+     * Extract data from Request, BaseSchema, or array
+     *
+     * @param  Request|BaseSchema|array $data
+     * @return array of data.
+     */
+    protected function extractData($data)
+    {
+        if ($data instanceof Request) {
+            return $this->setDataPayload($data);
+        } elseif ($data instanceof BaseSchema) {
+            return $data->getBody();
+        } elseif (is_array($data)) {
+            return $data;
+        }
+
+        throw new \InvalidArgumentException('Data must be Request, BaseSchema, or array');
     }
 
     /**

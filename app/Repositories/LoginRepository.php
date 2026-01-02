@@ -2,14 +2,15 @@
 
 namespace App\Repositories;
 
-use App\Commons\Repositories\AppRepository;
 use App\Schemas\auth\LoginSchema;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
+
 class LoginRepository
 {
+
     public function login(LoginSchema $schema): User
     {
         try {

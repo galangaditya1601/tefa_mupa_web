@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "title": "Manajemen Landing Page",
+    "icon": "fa-home",
+    "parent": null
+  },
+  {
+    "id": 2,
+    "title": "Manajemen Produk / Jasa",
+    "icon": "fa-box-open",
+    "parent": null
+  },
+  {
+    "id": 3,
+    "title": "Manajemen Diskon / Promo",
+    "icon": "fa-percentage",
+    "parent": null
+  },
+  {
+    "id": 4,
+    "title": "Manajemen Berita / Blog",
+    "icon": "fa-newspaper",
+    "parent": null
+  },
+  {
+    "id": 5,
+    "title": "Manajemen Galeri",
+    "icon": "fa-image",
+    "parent": null
+  },
+  {
+    "id": 6,
+    "title": "Manajemen Profil TEFA",
+    "icon": "fa-user-graduate",
+    "parent": null
+  },
+  {
+    "id": 7,
+    "title": "Manajemen Visi & Misi",
+    "icon": "fa-bullseye",
+    "parent": null
+  },
+  {
+    "id": 8,
+    "title": "Manajemen Struktur Organisasi",
+    "icon": "fa-sitemap",
+    "parent": null
+  },
+  {
+    "id": 9,
+    "title": "Manajemen Sertifikasi",
+    "icon": "fa-certificate",
+    "parent": null
+  },
+  {
+    "id": 10,
+    "title": "Manajemen Lisensi",
+    "icon": "fa-id-card",
+    "parent": null
+  },
+  {
+    "id": 11,
+    "title": "Manajemen Industri Mitra",
+    "icon": "fa-handshake",
+    "parent": null
+  }
+]
