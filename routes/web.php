@@ -46,5 +46,6 @@ Route::prefix('backoffice')->group(function () {
         Route::resource('categories', App\Http\Controllers\Backoffice\CategoryController::class);
         Route::resource('articles', App\Http\Controllers\Backoffice\NewsController::class);
         Route::resource('album', App\Http\Controllers\Backoffice\GalleriController::class);
+        Route::resource('history',App\Http\Controllers\Backoffice\HistoryController::class);
     });
 });

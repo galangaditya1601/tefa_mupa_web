@@ -20,8 +20,8 @@
                         <input name="file" type="file" />
                     </div>
                     <div class="dz-message">
-                        <h3 class="dropzone-msg-title">Your text here</h3>
-                        <span class="dropzone-msg-desc">Your custom description here</span>
+                        <h3 class="dropzone-msg-title">Upload Gambar</h3>
+                        <span class="dropzone-msg-desc">Gambar Otomatis Upload</span>
                     </div>
                 </form>
 
