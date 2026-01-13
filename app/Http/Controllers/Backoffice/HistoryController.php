@@ -83,7 +83,7 @@ class HistoryController extends BaseController
 
                 $file->storeAs('image/history', $filename, 'public');
                 $payload['image'] = $filename;
-                $payload['path'] = asset('storage/image/history/' . $filename);
+                $payload['path'] = asset('storage/image/history/');
             } else {
                 $payload['image'] = $findContent->image;
                 $payload['path'] = $findContent->path;
@@ -94,14 +94,10 @@ class HistoryController extends BaseController
 
             $schema = new \App\Schemas\HistorySchema();
             $schema->hydrateSchemaBody($payload);
-            $validator = $schema->validate();
+            $schema->validate();
+            $schema->hydrate();
 
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
-
-            $schema->hydrateBody();
-            $this->historyRepository->updateData($id, $payload);
+            $this->historyRepository->updateData($id, $schema);
 
             return redirect()->route('history.index')->with('success', 'History updated successfully');
         } catch (\Throwable $th) {

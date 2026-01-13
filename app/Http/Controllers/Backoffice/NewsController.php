@@ -28,7 +28,6 @@ class NewsController extends BaseController
             return view('backoffice.pages.news.index',compact('news'));
         } catch (\Throwable $th) {
             Log::error($th);
-            dd($th);
             return redirect()->back()->with('error', 'Failed to retrieve news data.');
         }
     }
@@ -55,12 +54,7 @@ class NewsController extends BaseController
         try {
             $schema = new \App\Schemas\NewsSchema();
             $schema->hydrateSchemaBody($request->all());
-
-            $validator = $schema->validate();
-
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
+            $schema->validate();
 
             if(!$request->hasFile('file')){
                 return redirect()->back()->with('error', 'Image is required')->withInput();
@@ -79,7 +73,7 @@ class NewsController extends BaseController
             $requestData['id_user'] = \Illuminate\Support\Facades\Auth::user()->id;
 
             $schema->hydrateSchemaBody($requestData);
-            $schema->hydrateBody();
+            $schema->hydrate();
 
             $this->newsRepository->createNews($schema);
 
@@ -154,8 +148,9 @@ class NewsController extends BaseController
 
             $schema = new \App\Schemas\NewsSchema();
             $schema->hydrateSchemaBody($data);
-            $validator = $schema->validate();
-            if ($validator->fails()) {
+            try {
+                $schema->validate();
+            } catch (\Illuminate\Validation\ValidationException $e) {
                 // Jika upload file baru tapi validasi gagal, hapus file baru tersebut
                 if ($newImageName) {
                     $filePath = 'images/news/' . $newImageName;
@@ -164,9 +159,9 @@ class NewsController extends BaseController
                     }
                 }
                 \Illuminate\Support\Facades\DB::rollBack();
-                return redirect()->back()->withErrors($validator)->withInput();
+                return redirect()->back()->withErrors($e->errors())->withInput();
             }
-            $schema->hydrateBody();
+            $schema->hydrate();
 
             // Setelah validasi, baru hapus gambar lama kalau ada upload gambar baru
             if ($newImageName) {

@@ -41,7 +41,7 @@ class HistoryRepository extends AppRepository
         try {
             $payload = [
                 'title' => $schema->getTitle(),
-                'body'  => $schema->getBody(),
+                'body'  => $schema->getBodyContent(),
                 'path'  => $schema->getPath(),
                 'image' => $schema->getImage()
             ];
@@ -65,7 +65,7 @@ class HistoryRepository extends AppRepository
             if ($schema instanceof \App\Schemas\HistorySchema) {
                 $payload = [
                     'title' => $schema->getTitle(),
-                    'body'  => $schema->getBody(),
+                    'body'  => $schema->getBodyContent(),
                     'image' => $schema->getImage(),
                     'path'  => $schema->getPath(),
                 ];

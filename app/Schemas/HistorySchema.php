@@ -7,11 +7,11 @@ use App\Commons\Schema\BaseSchema;
 class HistorySchema extends BaseSchema
 {
     private $title;
-    public $body; // 'body' should match or be less restrictive than parent visibility
+    private $bodyContent;
     private $path;
     private $image;
 
-    protected function rules()
+    protected function rules(): array
     {
         return [
             'title' => 'required|string|max:255',
@@ -21,12 +21,13 @@ class HistorySchema extends BaseSchema
         ];
     }
 
-    public function hydrateBody()
+    protected function hydrateBody(): static
     {
         $this->setTitle($this->body['title'] ?? null)
              ->setBody($this->body['body'] ?? null)
              ->setPath($this->body['path'] ?? null)
              ->setImage($this->body['image'] ?? null);
+        return $this;
     }
 
     // Title
@@ -41,13 +42,13 @@ class HistorySchema extends BaseSchema
     }
 
     // Body
-    public function getBody()
+    public function getBodyContent()
     {
-        return $this->body;
+        return $this->bodyContent;
     }
     public function setBody($body)
     {
-        $this->body = $body;
+        $this->bodyContent = $body;
         return $this;
     }
 

@@ -4,7 +4,7 @@
         <div class="card">
             <div class="row row-cards">
                 <div class="col-12">
-                    <form class="card" method="POST" action="{{ route('history.update',$history) }}">
+                    <form class="card" method="POST" action="{{ route('history.update', $history->id) }}" enctype="multipart/form-data">
                         @csrf @method('PUT')
                         <div class="card-body">
                             <h3 class="card-title">Edit Profile/Sejarah</h3>
@@ -17,14 +17,14 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <div class="form-label">Gambar</div>
-                                    <input type="file" class="form-control" name="file" />
+                                    <label class="form-label" for="image">Gambar</label>
+                                    <input type="file" class="form-control" name="file" id="image" accept="image/*" />
                                 </div>
                                 @if(!empty($history->image) && $history->image !== '-')
                                     <div class="mb-3">
                                         <label class="form-label">Current Image</label>
                                         <br>
-                                        <img src="{{ asset('storage/images/history/' . $history->image) }}" alt="History Image" style="max-width: 200px;">
+                                        <img src="{{ $history->path .'/'.$history->image }}" alt="History Image" style="max-width: 200px;">
                                     </div>
                                 @endif
                                 <div class="col-md-12">

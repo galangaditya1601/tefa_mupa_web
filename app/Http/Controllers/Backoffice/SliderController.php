@@ -61,18 +61,7 @@ class SliderController extends BaseController
 
             $schema = new \App\Schemas\SliderSchema();
             $schema->hydrateSchemaBody($formattedData);
-
-            $validator = $schema->validate();
-
-            if ($validator->fails()) {
-                // Jika validasi gagal, hapus file yang sudah diupload
-                if (\Illuminate\Support\Facades\Storage::disk('public')->exists('images/slider/' . $fileName)) {
-                    \Illuminate\Support\Facades\Storage::disk('public')->delete('images/slider/' . $fileName);
-                }
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
-
-            $schema->hydrateBody();
+            $schema->hydrate();
 
             $this->sliderRepository->createNews($schema);
 
@@ -141,10 +130,7 @@ class SliderController extends BaseController
             $schema = new \App\Schemas\SliderSchema();
             $schema->hydrateSchemaBody($data);
             $validator = $schema->validate();
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
-            $schema->hydrateBody();
+            $schema->hydrate();
 
             $updateData = [
                 'title' => $schema->getTitle(),

@@ -17,7 +17,7 @@ class NewsSchema extends BaseSchema
     private $status;
     private $id_user;
 
-    protected function rules()
+    protected function rules(): array
     {
         return [
             'title' => 'required|string|max:255',
@@ -37,7 +37,7 @@ class NewsSchema extends BaseSchema
         ];
     }
 
-    public function hydrateBody()
+    protected function hydrateBody(): static
     {
         $this->setTitle($this->body['title'] ?? null)
             ->setSlug($this->body['slug'] ?? null)
@@ -48,6 +48,7 @@ class NewsSchema extends BaseSchema
             ->setDate($this->body['date'] ?? null)
             ->setStatus($this->body['status'] ?? null)
             ->setIdUser($this->body['id_user'] ?? null);
+        return $this;
     }
 
     // Title
