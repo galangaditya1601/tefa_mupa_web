@@ -41,18 +41,14 @@ class CategoryController extends BaseController
 
             $schema = new \App\Schemas\CategorySchema();
             $schema->hydrateSchemaBody($formattedData);
-
-            $validator = $schema->validate();
-
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
-
-            $schema->hydrateBody();
+            $schema->validate();
+            $schema->hydrate();
 
             $this->categoryRepository->createNews($schema);
 
             return redirect()->route('categories.index')->with('success', 'Category created successfully');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Failed to create category: ' . $th->getMessage());
         }

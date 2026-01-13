@@ -80,15 +80,8 @@ class CategoryRepository extends AppRepository
 
                 $schema = new CategorySchema();
                 $schema->hydrateSchemaBody($formattedData);
-
-                $validator = $schema->validate();
-                if ($validator->fails()) {
-                    throw ValidationException::withMessages(
-                        $validator->errors()->toArray()
-                    );
-                }
-
-                $schema->hydrateBody();
+                $schema->validate();
+                $schema->hydrate();
 
                 $category = $this->model->findOrFail($id);
                 $category->update([

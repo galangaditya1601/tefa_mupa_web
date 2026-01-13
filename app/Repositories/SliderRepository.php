@@ -71,19 +71,16 @@ class SliderRepository extends AppRepository {
                 $schema = new SliderSchema();
                 $schema->hydrateSchemaBody($formattedData);
 
-
-                $validator = $schema->validate();
-                if ($validator->fails()) {
-
+                try {
+                    $schema->validate();
+                } catch (ValidationException $e) {
                     if ($request->hasFile('file') && isset($newFileName) && Storage::disk('public')->exists('images/slider/' . $newFileName)) {
                         Storage::disk('public')->delete('images/slider/' . $newFileName);
                     }
-                    throw ValidationException::withMessages(
-                        $validator->errors()->toArray()
-                    );
+                    throw $e;
                 }
 
-                $schema->hydrateBody();
+                $schema->hydrate();
 
                 $slider->update([
                     'title' => $schema->getTitle(),

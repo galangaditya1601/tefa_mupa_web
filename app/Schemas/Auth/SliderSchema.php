@@ -9,7 +9,7 @@ class SliderSchema extends BaseSchema {
     private $file;
     private $path;
 
-    protected function rules()
+    protected function rules(): array
     {
         return [
             'title' => 'required|string|max:255',
@@ -17,33 +17,34 @@ class SliderSchema extends BaseSchema {
         ];
     }
 
-
-    public function hydrateBody()
+    protected function hydrateBody(): static
     {
-        $title = $this->body['title'];
-        $file = $this->body['file'];
-        $path = $this->body['path'];
+        $title = $this->body['title'] ?? null;
+        $file = $this->body['file'] ?? null;
+        $path = $this->body['path'] ?? null;
         $this->setTitle($title)
-            ->setFile($path)
-            ->setFile($file);
+            ->setFile($file)
+            ->setPath($path);
+        return $this;
     }
 
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function getPath()
+    public function getPath(): ?string
     {
         return $this->path;
     }
-    public function setPath($path)
+
+    public function setPath($path): self
     {
         $this->path = $path;
         return $this;
     }
 
-    public function setTitle($title)
+    public function setTitle($title): self
     {
         $this->title = $title;
         return $this;
@@ -54,7 +55,7 @@ class SliderSchema extends BaseSchema {
         return $this->file;
     }
 
-    public function setFile($file)
+    public function setFile($file): self
     {
         $this->file = $file;
         return $this;

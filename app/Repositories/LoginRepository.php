@@ -14,14 +14,8 @@ class LoginRepository
     public function login(LoginSchema $schema): User
     {
         try {
-            $validator = $schema->validate();
-            if ($validator->fails()) {
-                throw ValidationException::withMessages(
-                    $validator->errors()->toArray()
-                );
-            }
-
-            $schema->hydrateBody();
+            $schema->validate();
+            $schema->hydrate();
             $user = User::where('email', $schema->getEmail())->first();
             if (!$user || !Hash::check(
                 $schema->getPassword(),

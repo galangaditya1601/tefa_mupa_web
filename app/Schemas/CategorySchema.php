@@ -2,6 +2,7 @@
 
 namespace App\Schemas;
 use App\Commons\Schema\BaseSchema;
+use Illuminate\Validation\Rule;
 
 class CategorySchema extends BaseSchema
 {
@@ -11,25 +12,30 @@ class CategorySchema extends BaseSchema
     private $icon;
     private $description;
 
-    public function rules()
+    protected function rules(): array
     {
         return [
-
             'type' => 'required|string|in:catalog,content',
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
+            'slug' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('categories', 'slug')->ignore($this->body['id'] ?? null),
+            ],
             'icon' => 'nullable|string',
             'description' => 'nullable|string',
         ];
     }
 
-    public function hydrateBody()
+    protected function hydrateBody(): static
     {
         $this->setType($this->body['type'] ?? null)
             ->setName($this->body['name'] ?? null)
             ->setSlug($this->body['slug'] ?? null)
             ->setIcon($this->body['icon'] ?? null)
             ->setDescription($this->body['description'] ?? null);
+        return $this;
     }
 
     public function getType()

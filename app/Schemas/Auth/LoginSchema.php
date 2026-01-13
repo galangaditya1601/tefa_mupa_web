@@ -9,10 +9,10 @@ class LoginSchema extends BaseSchema {
     private $email;
     private $password;
 
-    protected function rules()
+    public function rules(): array
     {
         return [
-            'email' => 'required|email',
+            'email' => ['required', 'email'],
             'password' => [
                 'required',
                 'string',
@@ -23,11 +23,11 @@ class LoginSchema extends BaseSchema {
             ],
         ];
     }
-    public function hydrateBody()
+    protected function hydrateBody(): static
     {
-        $email = $this->body['email'];
-        $password = $this->body['password'];
-        $this->setEmail($email)
+        $email = $this->body['email'] ?? null;
+        $password = $this->body['password'] ?? null;
+        return $this->setEmail($email)
             ->setPassword($password);
     }
 

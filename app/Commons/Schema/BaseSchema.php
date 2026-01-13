@@ -1,55 +1,65 @@
 <?php
 
 namespace App\Commons\Schema;
+
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
-class BaseSchema
+abstract class BaseSchema
 {
-    protected $body;
-    protected $queryParams;
+    protected array $body = [];
+    protected array $queryParams = [];
 
-    public function hydrateSchemaBody($body)
+    public function hydrateSchemaBody(array $body): static
     {
         $this->body = $body;
+        return $this; // 🔥 KUNCI
     }
 
-    public function hydrateSchemaQueryParams($query)
+    public function hydrateSchemaQueryParams(array $query): static
     {
         $this->queryParams = $query;
+        return $this;
     }
 
-    protected function rules()
+    abstract protected function rules(): array;
+
+    protected function messages(): array
     {
         return [];
     }
 
-    protected function messages()
+    public function validate(): static
     {
-        return [];
+        $validator = Validator::make(
+            $this->body,
+            $this->rules(),
+            $this->messages()
+        );
+
+        if ($validator->fails()) {
+            throw new ValidationException($validator);
+        }
+
+        return $this; // 🔥 KUNCI
     }
 
-    public function validate()
+    abstract protected function hydrateBody(): static;
+
+    protected function hydrateQueryParams(): static
     {
-        return Validator::make($this->body, $this->rules(), $this->messages());
+        return $this;
     }
 
-    public function hydrateBody()
+    public function hydrate(): static
     {
-
+        $this->hydrateBody();
+        $this->hydrateQueryParams();
+        return $this;
     }
 
-    public function hydrateQueryParams()
+    public function getBody(): array
     {
-
-    }
-
-    /**
-     * Get the body data
-     *
-     * @return array
-     */
-    public function getBody()
-    {
-        return $this->body ?? [];
+        return $this->body;
     }
 }

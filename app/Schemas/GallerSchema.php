@@ -12,7 +12,7 @@ class GallerSchema extends BaseSchema
     /**
      * Return validation rules for galler data.
      */
-    public function rules()
+    protected function rules(): array
     {
         return [
             'image' => 'required|string|max:255',
@@ -23,10 +23,11 @@ class GallerSchema extends BaseSchema
     /**
      * Hydrate schema properties from the request body.
      */
-    public function hydrateBody()
+    protected function hydrateBody(): static
     {
         $this->setPath($this->body['path'] ?? null)
             ->setImage($this->body['image'] ?? null);
+        return $this;
     }
 
     public function getPath()
