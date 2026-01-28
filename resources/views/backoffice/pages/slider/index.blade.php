@@ -34,6 +34,7 @@
                                 </svg>
                             </th>
                             <th>Title</th>
+                            <th>Subtitle</th>
                             <th>Image</th>
                             <th>Action</th>
                         </tr>
@@ -50,6 +51,7 @@
                             <tr>
                                 <td><span class="text-muted">{{ $no++ }}</span></td>
                                 <td class="text-muted">{{ $slider->title ?? '-' }}</td>
+                                <td class="text-muted">{{ $slider->subtitle ?? '-' }}</td>
                                 <td class="text-muted">
                                     @if ($slider->file)
                                         <img src="{{ $slider->path.'/'.$slider->file }}"

@@ -58,12 +58,10 @@ class PatnerController extends BaseController
             $extension = $image->getClientOriginalExtension();
             $imageName = now()->format('YmdHis') . '.' . $extension;
             $image->storeAs('images/partners', $imageName, 'public');
-            $pathUrl = asset('storage/images/partners');
 
             // Prepare data untuk schema (exclude file dari request)
             $requestData = $request->except('file');
             $requestData['image'] = $imageName; // Override dengan nama file (string)
-            $requestData['path'] = $pathUrl;
 
             // Validasi dan hydrate schema
             $schema = new \App\Schemas\PatnersSchema();

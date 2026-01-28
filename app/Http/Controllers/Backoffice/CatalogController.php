@@ -59,9 +59,8 @@ class CatalogController extends BaseController
                 'slug' => Str::slug($request->input('title')),
                 'id_category' => $request->input('id_category'),
                 'id_sub_category' => $request->input('id_sub_category'),
-                'content' => $request->input('content'),
-                'date' => $request->input('date'),
-                'status' => $request->input('status'),
+                // gunakan field "desc" agar sesuai dengan schema & kolom tabel
+                'desc' => $request->input('desc'),
                 'id_user' => Auth::user()->id,
             ];
 
